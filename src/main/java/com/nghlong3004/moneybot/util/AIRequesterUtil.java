@@ -23,14 +23,14 @@ public class AIRequesterUtil {
         .endpoint(APIConstant.ENDPOINT_AI).buildClient();
   }
 
-  public String ask(String message) {
+  public String ask(String message, String model) {
     try {
       LOGGER.info("Sending message to AI: {}", message);
       List<ChatRequestMessage> chatMessages =
           Collections.singletonList(new ChatRequestUserMessage(message));
 
       ChatCompletionsOptions options = new ChatCompletionsOptions(chatMessages);
-      options.setModel(APIConstant.MODEL_AI);
+      options.setModel(model);
 
       ChatCompletions completions = client.complete(options);
       String reply = completions.getChoice().getMessage().getContent();
