@@ -8,6 +8,10 @@ public interface IExpenseRepository {
   boolean insertExpense(Expense expense);
 
   List<Expense> findExpensesToday(Long userId);
+  
+  long CalculateTotalSpendingForToday(Long userId, String type);
+  
+  long CalculateTotalSpendingForNDays(Long userId, String type, int days);
 
   List<Expense> findExpensesLastNDays(Long userId, int days);
 

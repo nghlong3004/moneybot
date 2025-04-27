@@ -1,15 +1,13 @@
 package com.nghlong3004.moneybot.model;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 public class Expense {
   private Long id;
   private Long userId;
   private BigDecimal amount;
-  private String type; // "income" or "expense"
+  private String type;
   private String description;
-  private Timestamp updatedAt;
 
   private Expense(Builder builder) {
     this.id = builder.id;
@@ -17,7 +15,6 @@ public class Expense {
     this.amount = builder.amount;
     this.type = builder.type;
     this.description = builder.description;
-    this.updatedAt = builder.updatedAt;
   }
 
   public static Builder builder() {
@@ -30,7 +27,6 @@ public class Expense {
     private BigDecimal amount;
     private String type;
     private String description;
-    private Timestamp updatedAt = new Timestamp(System.currentTimeMillis());
 
     public Builder id(Long id) {
       this.id = id;
@@ -54,11 +50,6 @@ public class Expense {
 
     public Builder description(String description) {
       this.description = description;
-      return this;
-    }
-
-    public Builder updatedAt(Timestamp updatedAt) {
-      this.updatedAt = updatedAt;
       return this;
     }
 
@@ -105,13 +96,5 @@ public class Expense {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public Timestamp getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(Timestamp updatedAt) {
-    this.updatedAt = updatedAt;
   }
 }

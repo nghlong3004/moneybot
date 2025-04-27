@@ -21,6 +21,7 @@ public class TelegramService implements ITelegramService {
 
   @Override
   public void startBot() {
+    LOGGER.info("TelegramService : {}", "Start bot");
     TelegramBotManager.getInstance().start();
   }
 
