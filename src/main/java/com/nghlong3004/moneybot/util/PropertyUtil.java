@@ -31,6 +31,11 @@ public class PropertyUtil {
   public String getOpenAIApiKey() {
     return getPropertyValue("openai.api_key");
   }
+  
+  // -- GeminiAI --
+  public String getGeminiApiKey() {
+    return getPropertyValue("gemini.api_key");
+  }
 
   // --- GitHub ---
   public String getGithubApiKey() {

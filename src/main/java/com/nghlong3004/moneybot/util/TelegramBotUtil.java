@@ -78,7 +78,7 @@ public class TelegramBotUtil implements LongPollingSingleThreadUpdateConsumer {
   private void processTransactionEntry(MessageConfiguration messageModel) {
     String checkPrompt =
         String.format(PromptConstant.CHECK_IS_TRANSACTION_PROMPT, messageModel.getMessageText());
-    String checkResult = ObjectContainerUtil.getAiRequesterUtil().askGemini(checkPrompt);
+    String checkResult = ObjectContainerUtil.getAiRequesterUtil().askTextforGemini(checkPrompt);
     if (checkResult.startsWith("NO")) {
       sendHelpMessage(messageModel.getChatID());
       return;
@@ -86,7 +86,7 @@ public class TelegramBotUtil implements LongPollingSingleThreadUpdateConsumer {
     String now = LocalDate.now().toString();
     String prompt = String.format(PromptConstant.CLASSIFY_TRANSACTION_PROMPT, now,
         messageModel.getMessageText());
-    String aiResponse = ObjectContainerUtil.getAiRequesterUtil().askGemini(prompt);
+    String aiResponse = ObjectContainerUtil.getAiRequesterUtil().askTextforGemini(prompt);
     List<AI> results = parseJsonToAIModel(aiResponse);
     for (AI result : results) {
       Expense expense = Expense.builder().userId(messageModel.getChatID())
@@ -99,7 +99,7 @@ public class TelegramBotUtil implements LongPollingSingleThreadUpdateConsumer {
     String confirmPrompt =
         String.format(PromptConstant.CONFIRM_TRANSACTION_REPLY_PROMPT, aiResponse);
     sendTextMessage(messageModel.getChatID(),
-        ObjectContainerUtil.getAiRequesterUtil().askGemini(confirmPrompt));
+        ObjectContainerUtil.getAiRequesterUtil().askTextforGemini(confirmPrompt));
   }
 
   private void handleExpenseStatisticRequest(MessageConfiguration messageModel) {

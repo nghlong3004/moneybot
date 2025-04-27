@@ -26,7 +26,7 @@ public final class PromptConstant {
       + "\r\n"
       + "\"%s\"\r\n"
       + "\r\n"
-      + "Cho biết đây có phải là một tin nhắn báo cho người nhận rằng đây là khoản tiền tiêu đi hoặc thu vào hay không?\r\n"
+      + "Cho biết đây có phải là một tin nhắn thông báo rằng đây là khoản tiền tiêu đi hoặc thu vào hay không?\r\n"
       + "\r\n"
       + "Chỉ trả lời đúng 1 từ: \"YES\" hoặc \"NO\".\r\n"
       + "và giải thích.";
