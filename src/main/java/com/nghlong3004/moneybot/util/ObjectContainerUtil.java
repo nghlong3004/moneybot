@@ -5,6 +5,8 @@ import com.nghlong3004.moneybot.configuration.DatabaseConfiguration;
 public class ObjectContainerUtil {
 
   private static final PropertyUtil PROPERTY_UTIL = new PropertyUtil();
+  
+  private static final GoogleSheetUtil GOOGLE_SHEET_UTIL = new GoogleSheetUtil();
 
   private static final DatabaseConfiguration DATABASE_CONFIGURATION =
       new DatabaseConfiguration(getPropertyUtil().getDbUrl(), getPropertyUtil().getDbUsername(),
@@ -38,6 +40,10 @@ public class ObjectContainerUtil {
 
   public static AIRequesterUtil getAiRequesterUtil() {
     return AI_REQUESTER_UTIL;
+  }
+
+  public static GoogleSheetUtil getGoogleSheetUtil() {
+    return GOOGLE_SHEET_UTIL;
   }
 
 

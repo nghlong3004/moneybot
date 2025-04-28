@@ -1,0 +1,11 @@
+package com.nghlong3004.moneybot.service;
+
+import java.util.List;
+
+public interface IGoogleSheetsService {
+
+  String readFromSheet(String spreadsheetId, String range);
+
+  boolean writeToSheet(String spreadsheetId, String range, List<List<Object>> data);
+
+}
