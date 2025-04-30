@@ -1,22 +1,26 @@
 package com.nghlong3004.moneybot.service;
 
-import java.util.List;
 import com.nghlong3004.moneybot.model.Expense;
 
 public interface IExpenseService {
 
   boolean insertExpense(Expense expense);
 
+  boolean deleteExpenseById(Long expenseId);
+
   long calculateTotalSpendingForToday(Long userId, String type);
 
   long calculateTotalSpendingForNDays(Long userId, String type, int days);
 
-  List<Expense> findExpensesToday(Long userId);
+  long calculateTotalSpendingForThisWeek(Long userId, String type);
 
-  List<Expense> findExpensesLastNDays(Long userId, int days);
+  long calculateTotalSpendingForThisMonth(Long userId, String type);
 
-  List<Expense> findAllExpensesThisMonth(Long userId);
+  long calculateTotalSpendingForLastMonth(Long userId, String type);
 
-  boolean deleteExpenseById(Long expenseId);
+  long calculateTotalSpendingForThisQuarter(Long userId, String type);
 
+  long calculateTotalSpendingForThisYear(Long userId, String type);
+
+  int countTransactionsByUser(Long telegramUserId);
 }

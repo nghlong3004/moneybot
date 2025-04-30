@@ -1,18 +1,22 @@
 package com.nghlong3004.moneybot.service.impl;
 
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.nghlong3004.moneybot.model.Expense;
 import com.nghlong3004.moneybot.repository.IExpenseRepository;
 import com.nghlong3004.moneybot.repository.jdbc.ExpenseRepository;
 import com.nghlong3004.moneybot.service.IExpenseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ExpenseService implements IExpenseService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ExpenseService.class);
   private static ExpenseService INSTANCE;
   private final IExpenseRepository expenseRepository;
+
+  private ExpenseService() {
+    LOGGER.info("Initialized ExpenseService");
+    this.expenseRepository = new ExpenseRepository();
+  }
 
   public static synchronized ExpenseService getInstance() {
     if (INSTANCE == null) {
@@ -21,52 +25,64 @@ public class ExpenseService implements IExpenseService {
     return INSTANCE;
   }
 
-  private ExpenseService() {
-    LOGGER.info("Initialized ExpenseService");
-    expenseRepository = new ExpenseRepository();
-  }
-
-
   @Override
   public boolean insertExpense(Expense expense) {
-    LOGGER.info("ExpenseService: {}", "Insert expense");
+    LOGGER.info("Insert expense");
     return expenseRepository.insertExpense(expense);
   }
 
   @Override
-  public List<Expense> findExpensesToday(Long userId) {
-    LOGGER.info("ExpenseService: {}", "Find expense today");
-    return expenseRepository.findExpensesToday(userId);
-  }
-
-  @Override
-  public List<Expense> findExpensesLastNDays(Long userId, int days) {
-    LOGGER.info("ExpenseService: {}", "Find expense last n day");
-    return expenseRepository.findExpensesLastNDays(userId, days);
-  }
-
-  @Override
-  public List<Expense> findAllExpensesThisMonth(Long userId) {
-    LOGGER.info("ExpenseService: {}", "Find all expenses this month");
-    return expenseRepository.findAllExpensesThisMonth(userId);
-  }
-
-  @Override
   public boolean deleteExpenseById(Long expenseId) {
-    LOGGER.info("ExpenseService: {}", "Delete expense by id");
+    LOGGER.info("Delete expense by id");
     return expenseRepository.deleteExpenseById(expenseId);
   }
 
+
   @Override
   public long calculateTotalSpendingForToday(Long userId, String type) {
-    LOGGER.info("ExpenseService: {}", "Calculate total spending for today");
-    return expenseRepository.CalculateTotalSpendingForToday(userId, type);
+    LOGGER.info("Calculate total spending for today");
+    return expenseRepository.calculateTotalSpendingForToday(userId, type);
   }
 
   @Override
   public long calculateTotalSpendingForNDays(Long userId, String type, int days) {
-    LOGGER.info("ExpenseService: {}", "Calculate total spending for n days");
-    return expenseRepository.CalculateTotalSpendingForNDays(userId, type, days);
+    LOGGER.info("Calculate total spending for last {} days", days);
+    return expenseRepository.calculateTotalSpendingForNDays(userId, type, days);
   }
 
+  @Override
+  public long calculateTotalSpendingForThisWeek(Long userId, String type) {
+    LOGGER.info("Calculate total spending for this week");
+    return expenseRepository.calculateTotalSpendingForThisWeek(userId, type);
+  }
+
+  @Override
+  public long calculateTotalSpendingForThisMonth(Long userId, String type) {
+    LOGGER.info("Calculate total spending for this month");
+    return expenseRepository.calculateTotalSpendingForThisMonth(userId, type);
+  }
+
+  @Override
+  public long calculateTotalSpendingForLastMonth(Long userId, String type) {
+    LOGGER.info("Calculate total spending for last month");
+    return expenseRepository.calculateTotalSpendingForLastMonth(userId, type);
+  }
+
+  @Override
+  public long calculateTotalSpendingForThisQuarter(Long userId, String type) {
+    LOGGER.info("Calculate total spending for this quarter");
+    return expenseRepository.calculateTotalSpendingForThisQuarter(userId, type);
+  }
+
+  @Override
+  public long calculateTotalSpendingForThisYear(Long userId, String type) {
+    LOGGER.info("Calculate total spending for this year");
+    return expenseRepository.calculateTotalSpendingForThisYear(userId, type);
+  }
+
+  @Override
+  public int countTransactionsByUser(Long telegramUserId) {
+    LOGGER.info("Count transactions by user");
+    return expenseRepository.countTransactionsByUser(telegramUserId);
+  }
 }
