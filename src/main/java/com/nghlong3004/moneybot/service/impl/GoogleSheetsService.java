@@ -1,10 +1,16 @@
 package com.nghlong3004.moneybot.service.impl;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
+import com.google.api.services.sheets.v4.model.DimensionRange;
+import com.google.api.services.sheets.v4.model.InsertDimensionRequest;
+import com.google.api.services.sheets.v4.model.Request;
+import com.google.api.services.sheets.v4.model.Sheet;
+import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.nghlong3004.moneybot.service.IGoogleSheetsService;
@@ -68,6 +74,48 @@ public class GoogleSheetsService implements IGoogleSheetsService {
       LOGGER.error("Error writing data to spreadsheetId={}, range={}", spreadsheetId, range, e);
       return false;
     }
+  }
+
+  @Override
+  public boolean insertRowAbove(String spreadsheetId, String sheetName, int rowIndex) {
+    LOGGER.info("Inserting new row above rowIndex={} in sheetName={}", rowIndex, sheetName);
+    try {
+      Integer sheetId = getSheetIdByName(spreadsheetId, sheetName);
+      if (sheetId == null) {
+        LOGGER.error("Sheet name '{}' not found", sheetName);
+        return false;
+      }
+
+      DimensionRange dimRange = new DimensionRange().setSheetId(sheetId).setDimension("ROWS")
+          .setStartIndex(rowIndex).setEndIndex(rowIndex + 1);
+
+      InsertDimensionRequest insertReq =
+          new InsertDimensionRequest().setRange(dimRange).setInheritFromBefore(rowIndex > 0); 
+
+      Request request = new Request().setInsertDimension(insertReq);
+      BatchUpdateSpreadsheetRequest batchReq =
+          new BatchUpdateSpreadsheetRequest().setRequests(Collections.singletonList(request));
+
+      ObjectContainerUtil.getGoogleSheetUtil().getSheetsService().spreadsheets()
+          .batchUpdate(spreadsheetId, batchReq).execute();
+
+      LOGGER.info("Inserted row successfully.");
+      return true;
+    } catch (IOException e) {
+      LOGGER.error("Error inserting row", e);
+      return false;
+    }
+  }
+
+  private Integer getSheetIdByName(String spreadsheetId, String sheetName) throws IOException {
+    Spreadsheet spreadsheet = ObjectContainerUtil.getGoogleSheetUtil().getSheetsService()
+        .spreadsheets().get(spreadsheetId).setFields("sheets.properties").execute();
+    for (Sheet sheet : spreadsheet.getSheets()) {
+      if (sheet.getProperties().getTitle().equalsIgnoreCase(sheetName)) {
+        return sheet.getProperties().getSheetId();
+      }
+    }
+    return null;
   }
 
   private String parseObjectToString(List<List<Object>> values) {

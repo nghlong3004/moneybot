@@ -8,4 +8,6 @@ public interface IGoogleSheetsService {
 
   boolean writeToSheet(String spreadsheetId, String range, List<List<Object>> data);
 
+  boolean insertRowAbove(String spreadsheetId, String sheetId, int rowIndex);
+
 }
