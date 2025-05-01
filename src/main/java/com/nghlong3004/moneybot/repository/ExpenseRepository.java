@@ -3,7 +3,7 @@ package com.nghlong3004.moneybot.repository;
 import com.nghlong3004.moneybot.model.Expense;
 
 
-public interface IExpenseRepository {
+public interface ExpenseRepository {
 
   boolean insertExpense(Expense expense);
 

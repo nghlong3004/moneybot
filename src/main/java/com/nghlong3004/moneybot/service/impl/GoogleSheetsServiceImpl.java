@@ -15,7 +15,6 @@ import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.nghlong3004.moneybot.service.GoogleSheetsService;
-import com.nghlong3004.moneybot.util.GoogleCredentialReaderUtil;
 import com.nghlong3004.moneybot.util.ObjectContainerUtil;
 
 public class GoogleSheetsServiceImpl implements GoogleSheetsService {
@@ -36,9 +35,8 @@ public class GoogleSheetsServiceImpl implements GoogleSheetsService {
   public String readFromSheet(String spreadsheetId, String range) {
     LOGGER.info("Reading data from Google Sheets");
     try {
-      ValueRange response =
-          ObjectContainerUtil.getGoogleSheetUtil().getSheetsService().spreadsheets().values()
-              .get(GoogleCredentialReaderUtil.getTemplateFileId(), range).execute();
+      ValueRange response = ObjectContainerUtil.getGoogleSheetUtil().getSheetsService()
+          .spreadsheets().values().get(spreadsheetId, range).execute();
 
       List<List<Object>> values = response.getValues();
       if (values == null || values.isEmpty()) {
@@ -63,8 +61,7 @@ public class GoogleSheetsServiceImpl implements GoogleSheetsService {
       ValueRange body = new ValueRange().setValues(data);
       UpdateValuesResponse result =
           ObjectContainerUtil.getGoogleSheetUtil().getSheetsService().spreadsheets().values()
-              .update(GoogleCredentialReaderUtil.getTemplateFileId(), range, body)
-              .setValueInputOption("USER_ENTERED").execute();
+              .update(spreadsheetId, range, body).setValueInputOption("USER_ENTERED").execute();
       LOGGER.info("{} cells updated successfully", result.getUpdatedCells());
       return true;
     } catch (IOException e) {

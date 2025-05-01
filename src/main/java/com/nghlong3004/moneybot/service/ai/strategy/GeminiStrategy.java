@@ -23,7 +23,7 @@ public class GeminiStrategy implements AIClientStrategy {
     LOGGER.info("Gemini chat – model: {}, promptSize: {}", model.getModelId(), prompt.length());
     try {
       GenerateContentResponse res = client.models.generateContent(model.getModelId(), prompt, null);
-      LOGGER.info("Gemini reply");
+      LOGGER.info("Gemini reply message {}", res.text());
       return res.text();
     } catch (Exception e) {
       LOGGER.error("Gemini failure", e);

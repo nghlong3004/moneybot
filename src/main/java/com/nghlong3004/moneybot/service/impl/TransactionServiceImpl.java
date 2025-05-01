@@ -19,14 +19,15 @@ import com.nghlong3004.moneybot.model.ai.AI;
 import com.nghlong3004.moneybot.service.ExpenseService;
 import com.nghlong3004.moneybot.service.GoogleSheetsService;
 import com.nghlong3004.moneybot.service.TransactionService;
+import com.nghlong3004.moneybot.service.UserService;
 import com.nghlong3004.moneybot.service.ai.AIFacadeService;
-import com.nghlong3004.moneybot.util.GoogleCredentialReaderUtil;
 import com.nghlong3004.moneybot.util.ObjectContainerUtil;
 
 public class TransactionServiceImpl implements TransactionService {
   private static final Logger LOGGER = LoggerFactory.getLogger(TransactionServiceImpl.class);
   private final AIFacadeService aiFacadeService;
   private final ExpenseService expenseService;
+  private final UserService userService;
   private final ObjectMapper objectMapper;
   private final GoogleSheetsService googleSheetsService;
 
@@ -35,6 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
         AIFacadeService.getInstance(ObjectContainerUtil.getPropertyUtil().getOpenAIApiKey(),
             ObjectContainerUtil.getPropertyUtil().getGeminiApiKey(), APIConstant.ENDPOINT_AI);
     this.expenseService = ExpenseServiceImpl.getInstance();
+    this.userService = UserServiceImpl.getInstance();
     this.objectMapper = new ObjectMapper()
         .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE).findAndRegisterModules();
     this.googleSheetsService = GoogleSheetsServiceImpl.getInstance();
@@ -84,9 +86,9 @@ public class TransactionServiceImpl implements TransactionService {
     if (expense.getAmount().compareTo(BigDecimal.valueOf(1000)) >= 0) {
       expenseService.insertExpense(expense);
       if (expense.getType().equals("income")) {
-        writeIncomeToGoogleSheet(ai);
+        writeIncomeToGoogleSheet(ai, userId);
       } else {
-        writeExpenseToGoogleSheet(ai);
+        writeExpenseToGoogleSheet(ai, userId);
       }
       LOGGER.debug("Inserted expense: {}", expense);
     } else {
@@ -94,8 +96,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
   }
 
-  private void writeIncomeToGoogleSheet(AI ai) {
-    String spreadsheetsId = GoogleCredentialReaderUtil.getTemplateFileId();
+  private void writeIncomeToGoogleSheet(AI ai, Long telegramUserId) {
+    String spreadsheetsId = userService.getSpreadsheetId(telegramUserId);
     int month = ai.getDate().getMonthValue();
     char monthChar = (char) (month + 'A');
     int year = ai.getDate().getYear();
@@ -113,8 +115,8 @@ public class TransactionServiceImpl implements TransactionService {
 
   }
 
-  private void writeExpenseToGoogleSheet(AI ai) {
-    String spreadsheetsId = GoogleCredentialReaderUtil.getTemplateFileId();
+  private void writeExpenseToGoogleSheet(AI ai, Long telegramUserId) {
+    String spreadsheetsId = userService.getSpreadsheetId(telegramUserId);
     int month = ai.getDate().getMonthValue();
     char columnIndex = getIndex(ai.getSpendingType());
 

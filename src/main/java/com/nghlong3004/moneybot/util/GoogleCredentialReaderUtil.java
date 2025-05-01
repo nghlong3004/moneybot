@@ -37,8 +37,4 @@ public class GoogleCredentialReaderUtil {
   public static String getRedirectUri() {
     return credentialData.get("redirect_uris").get(0).asText();
   }
-
-  public static String getTemplateFileId() {
-    return credentialData.get("template_file_id").asText();
-  }
 }

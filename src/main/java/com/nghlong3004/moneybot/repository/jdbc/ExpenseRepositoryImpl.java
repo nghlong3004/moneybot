@@ -1,7 +1,7 @@
 package com.nghlong3004.moneybot.repository.jdbc;
 
 import com.nghlong3004.moneybot.model.Expense;
-import com.nghlong3004.moneybot.repository.IExpenseRepository;
+import com.nghlong3004.moneybot.repository.ExpenseRepository;
 import com.nghlong3004.moneybot.repository.sql.ExpenseSQL;
 import com.nghlong3004.moneybot.util.ObjectContainerUtil;
 import org.slf4j.Logger;
@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
-public class ExpenseRepository implements IExpenseRepository {
+public class ExpenseRepositoryImpl implements ExpenseRepository{
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ExpenseRepository.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExpenseRepositoryImpl.class);
 
-  public ExpenseRepository() {}
+  public ExpenseRepositoryImpl() {}
 
   @Override
   public boolean insertExpense(Expense expense) {

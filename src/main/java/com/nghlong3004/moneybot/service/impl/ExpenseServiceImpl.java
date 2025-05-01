@@ -1,8 +1,8 @@
 package com.nghlong3004.moneybot.service.impl;
 
 import com.nghlong3004.moneybot.model.Expense;
-import com.nghlong3004.moneybot.repository.IExpenseRepository;
-import com.nghlong3004.moneybot.repository.jdbc.ExpenseRepository;
+import com.nghlong3004.moneybot.repository.ExpenseRepository;
+import com.nghlong3004.moneybot.repository.jdbc.ExpenseRepositoryImpl;
 import com.nghlong3004.moneybot.service.ExpenseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +11,11 @@ public class ExpenseServiceImpl implements ExpenseService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ExpenseServiceImpl.class);
   private static ExpenseServiceImpl INSTANCE;
-  private final IExpenseRepository expenseRepository;
+  private final ExpenseRepository expenseRepository;
 
   private ExpenseServiceImpl() {
     LOGGER.info("Initialized ExpenseService");
-    this.expenseRepository = new ExpenseRepository();
+    this.expenseRepository = new ExpenseRepositoryImpl();
   }
 
   public static synchronized ExpenseServiceImpl getInstance() {
