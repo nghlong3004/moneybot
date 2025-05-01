@@ -3,15 +3,15 @@ package com.nghlong3004.moneybot.telegram;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.objects.message.Message;
-import com.nghlong3004.moneybot.service.ITransactionService;
+import com.nghlong3004.moneybot.service.TransactionService;
 import com.nghlong3004.moneybot.util.BotCommandUtil;
 
 public class TelegramTransactionProcessor {
   private static final Logger LOGGER = LoggerFactory.getLogger(TelegramTransactionProcessor.class);
-  private final ITransactionService transactionService;
+  private final TransactionService transactionService;
   private final ITelegramGateway telegramGateway;
 
-  public TelegramTransactionProcessor(ITransactionService transactionService,
+  public TelegramTransactionProcessor(TransactionService transactionService,
       ITelegramGateway telegramGateway) {
     this.transactionService = transactionService;
     this.telegramGateway = telegramGateway;

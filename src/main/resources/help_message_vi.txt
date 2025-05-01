@@ -1,0 +1,22 @@
+Hướng dẫn sử dụng:
+
+Gõ /start — Hiển thị bảng hướng dẫn sử dụng Bot
+
+Gõ /today — Xem thống kê chi tiêu hôm nay
+
+Gõ /last_3_days — Xem thống kê chi tiêu 3 ngày gần nhất
+
+Gõ /last_7_days — Xem thống kê chi tiêu 7 ngày gần nhất
+
+Gõ /this_week — Xem thống kê chi tiêu tuần này
+
+Gõ /this_month — Xem thống kê chi tiêu tháng này
+
+Gõ /last_month — Xem thống kê chi tiêu tháng trước
+
+Gõ /this_quarter — Xem thống kê chi tiêu quý này
+
+Gõ /this_year — Xem thống kê chi tiêu năm nay
+
+
+Hoặc bạn báo với bot để bot tự động ghi nhận thu nhập hoặc chi tiêu.

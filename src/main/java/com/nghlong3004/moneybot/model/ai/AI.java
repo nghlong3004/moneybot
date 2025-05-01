@@ -9,16 +9,22 @@ public class AI {
   private String category;
   private String periodOfDay;
   private LocalDate date;
+  private String spendingType;
 
   public AI() {}
 
-  public AI(String type, BigDecimal amount, String category, String periodOfDay, LocalDate date) {
+  public AI(String type, BigDecimal amount, String category, String periodOfDay, LocalDate date,
+      String spendingType) {
+    super();
     this.type = type;
     this.amount = amount;
     this.category = category;
     this.periodOfDay = periodOfDay;
     this.date = date;
+    this.spendingType = spendingType;
   }
+
+
 
   public String getType() {
     return type;
@@ -58,6 +64,14 @@ public class AI {
 
   public void setDate(LocalDate date) {
     this.date = date;
+  }
+
+  public String getSpendingType() {
+    return spendingType;
+  }
+
+  public void setSpendingType(String spendingType) {
+    this.spendingType = spendingType;
   }
 
 }

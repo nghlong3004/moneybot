@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.objects.message.Message;
-import com.nghlong3004.moneybot.service.IStatisticService;
+import com.nghlong3004.moneybot.service.StatisticService;
 import com.nghlong3004.moneybot.util.BotCommandUtil;
 
 public class TelegramCommandHandler {
@@ -13,7 +13,7 @@ public class TelegramCommandHandler {
   private final Map<String, Consumer<Long>> commands;
   private final ITelegramGateway telegramGateway;
 
-  public TelegramCommandHandler(IStatisticService statisticService,
+  public TelegramCommandHandler(StatisticService statisticService,
       ITelegramGateway telegramGateway) {
     this.telegramGateway = telegramGateway;
     commands = Map.of("/start",
