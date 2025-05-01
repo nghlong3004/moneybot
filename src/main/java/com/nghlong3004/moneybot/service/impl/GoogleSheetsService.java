@@ -3,6 +3,7 @@ package com.nghlong3004.moneybot.service.impl;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
@@ -44,9 +45,8 @@ public class GoogleSheetsService implements IGoogleSheetsService {
       if (values == null || values.isEmpty()) {
         LOGGER.warn("No data found in spreadsheetId={}, range={}", spreadsheetId, range);
         return "";
-      } else {
-        return parseObjectToString(values);
       }
+      return parseObjectToString(values);
     } catch (IOException e) {
       LOGGER.error("Error reading data from spreadsheetId={}, range={}", spreadsheetId, range, e);
       return "";
@@ -90,7 +90,7 @@ public class GoogleSheetsService implements IGoogleSheetsService {
           .setStartIndex(rowIndex).setEndIndex(rowIndex + 1);
 
       InsertDimensionRequest insertReq =
-          new InsertDimensionRequest().setRange(dimRange).setInheritFromBefore(rowIndex > 0); 
+          new InsertDimensionRequest().setRange(dimRange).setInheritFromBefore(rowIndex > 0);
 
       Request request = new Request().setInsertDimension(insertReq);
       BatchUpdateSpreadsheetRequest batchReq =
@@ -119,13 +119,9 @@ public class GoogleSheetsService implements IGoogleSheetsService {
   }
 
   private String parseObjectToString(List<List<Object>> values) {
-    String s = "";
-    for (List<Object> value : values) {
-      for (Object v : value) {
-        s += v.toString() + " ";
-      }
-      s += '\n';
-    }
+    String s = values.stream()
+        .map(value -> value.stream().map(Object::toString).map(String::trim).collect(Collectors.joining(" ")))
+        .collect(Collectors.joining("\n"));
     return s;
   }
 
