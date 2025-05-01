@@ -1,4 +1,4 @@
-package com.nghlong3004.moneybot.service.dao.impl;
+package com.nghlong3004.moneybot.service.impl;
 
 import java.util.List;
 import org.slf4j.Logger;
@@ -6,22 +6,22 @@ import org.slf4j.LoggerFactory;
 import com.nghlong3004.moneybot.model.User;
 import com.nghlong3004.moneybot.repository.IUserRepository;
 import com.nghlong3004.moneybot.repository.jdbc.UserRepository;
-import com.nghlong3004.moneybot.service.dao.IUserService;
+import com.nghlong3004.moneybot.service.UserService;
 
-public class UserService implements IUserService {
+public class UserServiceImpl implements UserService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
-  private static UserService INSTANCE;
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+  private static UserServiceImpl INSTANCE;
   private final IUserRepository userRepository;
 
-  public static synchronized UserService getInstance() {
+  public static synchronized UserServiceImpl getInstance() {
     if (INSTANCE == null) {
-      INSTANCE = new UserService();
+      INSTANCE = new UserServiceImpl();
     }
     return INSTANCE;
   }
 
-  private UserService() {
+  private UserServiceImpl() {
     LOGGER.info("Initialized UserService");
     userRepository = new UserRepository();
   }

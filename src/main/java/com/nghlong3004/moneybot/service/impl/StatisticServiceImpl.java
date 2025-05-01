@@ -2,18 +2,16 @@ package com.nghlong3004.moneybot.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.nghlong3004.moneybot.service.IStatisticService;
-import com.nghlong3004.moneybot.service.dao.IExpenseService;
-import com.nghlong3004.moneybot.service.dao.impl.ExpenseService;
+import com.nghlong3004.moneybot.service.ExpenseService;
+import com.nghlong3004.moneybot.service.StatisticService;
 
-public class StatisticService implements IStatisticService {
+public class StatisticServiceImpl implements StatisticService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(StatisticService.class);
-  private final IExpenseService expenseService;
-  
-  
-  public StatisticService() {
-    this.expenseService = ExpenseService.getInstance();
+  private static final Logger LOGGER = LoggerFactory.getLogger(StatisticServiceImpl.class);
+  private final ExpenseService expenseService;
+
+  public StatisticServiceImpl() {
+    this.expenseService = ExpenseServiceImpl.getInstance();
     LOGGER.info("StatisticServiceImpl initialized.");
   }
 

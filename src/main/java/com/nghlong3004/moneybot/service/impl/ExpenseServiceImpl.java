@@ -1,26 +1,26 @@
-package com.nghlong3004.moneybot.service.dao.impl;
+package com.nghlong3004.moneybot.service.impl;
 
 import com.nghlong3004.moneybot.model.Expense;
 import com.nghlong3004.moneybot.repository.IExpenseRepository;
 import com.nghlong3004.moneybot.repository.jdbc.ExpenseRepository;
-import com.nghlong3004.moneybot.service.dao.IExpenseService;
+import com.nghlong3004.moneybot.service.ExpenseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExpenseService implements IExpenseService {
+public class ExpenseServiceImpl implements ExpenseService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ExpenseService.class);
-  private static ExpenseService INSTANCE;
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExpenseServiceImpl.class);
+  private static ExpenseServiceImpl INSTANCE;
   private final IExpenseRepository expenseRepository;
 
-  private ExpenseService() {
+  private ExpenseServiceImpl() {
     LOGGER.info("Initialized ExpenseService");
     this.expenseRepository = new ExpenseRepository();
   }
 
-  public static synchronized ExpenseService getInstance() {
+  public static synchronized ExpenseServiceImpl getInstance() {
     if (INSTANCE == null) {
-      INSTANCE = new ExpenseService();
+      INSTANCE = new ExpenseServiceImpl();
     }
     return INSTANCE;
   }

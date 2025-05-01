@@ -1,6 +1,6 @@
 package com.nghlong3004.moneybot.service;
 
-public interface ITelegramService {
+public interface TelegramService {
   public void startBot();
   
 }

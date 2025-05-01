@@ -2,7 +2,7 @@ package com.nghlong3004.moneybot.service;
 
 import java.util.List;
 
-public interface IGoogleSheetsService {
+public interface GoogleSheetsService {
 
   String readFromSheet(String spreadsheetId, String range);
 

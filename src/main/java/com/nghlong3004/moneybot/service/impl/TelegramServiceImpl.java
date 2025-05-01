@@ -3,28 +3,28 @@ package com.nghlong3004.moneybot.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
-import com.nghlong3004.moneybot.service.IStatisticService;
-import com.nghlong3004.moneybot.service.ITelegramService;
-import com.nghlong3004.moneybot.service.ITransactionService;
+import com.nghlong3004.moneybot.service.StatisticService;
+import com.nghlong3004.moneybot.service.TelegramService;
+import com.nghlong3004.moneybot.service.TransactionService;
 import com.nghlong3004.moneybot.telegram.ITelegramGateway;
 import com.nghlong3004.moneybot.telegram.TelegramCommandHandler;
 import com.nghlong3004.moneybot.telegram.TelegramGateway;
 import com.nghlong3004.moneybot.telegram.TelegramTransactionProcessor;
 import com.nghlong3004.moneybot.util.ObjectContainerUtil;
 
-public class TelegramService implements ITelegramService {
+public class TelegramServiceImpl implements TelegramService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(TelegramService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(TelegramServiceImpl.class);
 
-  private static final TelegramService INSTANCE = new TelegramService();
+  private static final TelegramServiceImpl INSTANCE = new TelegramServiceImpl();
 
   private TelegramBotsLongPollingApplication botsApplication;
 
-  private TelegramService() {
+  private TelegramServiceImpl() {
     LOGGER.info("Initialized TelegramBotManager");
   }
 
-  public static TelegramService getInstance() {
+  public static TelegramServiceImpl getInstance() {
     return INSTANCE;
   }
 
@@ -34,11 +34,11 @@ public class TelegramService implements ITelegramService {
       String token = ObjectContainerUtil.getPropertyUtil().getTelegramToken();
 
       ITelegramGateway telegramGateway = new TelegramGateway(token);
-      IStatisticService statisticService = new StatisticService();
-      ITransactionService transactionService = new TransactionService();
+      StatisticService statisticService = new StatisticServiceImpl();
+      TransactionService transactionService = new TransactionServiceImpl();
 
-      TelegramBotService botService =
-          new TelegramBotService(new TelegramCommandHandler(statisticService, telegramGateway),
+      TelegramBotServiceImpl botService =
+          new TelegramBotServiceImpl(new TelegramCommandHandler(statisticService, telegramGateway),
               new TelegramTransactionProcessor(transactionService, telegramGateway));
 
       botsApplication = new TelegramBotsLongPollingApplication();

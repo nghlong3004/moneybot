@@ -1,6 +1,6 @@
 package com.nghlong3004.moneybot.service;
 
-public interface IStatisticService {
+public interface StatisticService {
   String getTodayStats(Long userId);
 
   String getLastNDaysStats(Long userId, int days);

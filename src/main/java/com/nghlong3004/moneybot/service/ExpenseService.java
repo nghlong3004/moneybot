@@ -1,8 +1,8 @@
-package com.nghlong3004.moneybot.service.dao;
+package com.nghlong3004.moneybot.service;
 
 import com.nghlong3004.moneybot.model.Expense;
 
-public interface IExpenseService {
+public interface ExpenseService {
 
   boolean insertExpense(Expense expense);
 

@@ -14,28 +14,27 @@ import com.google.api.services.sheets.v4.model.Sheet;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
-import com.nghlong3004.moneybot.service.IGoogleSheetsService;
+import com.nghlong3004.moneybot.service.GoogleSheetsService;
 import com.nghlong3004.moneybot.util.GoogleCredentialReaderUtil;
 import com.nghlong3004.moneybot.util.ObjectContainerUtil;
 
-public class GoogleSheetsService implements IGoogleSheetsService {
+public class GoogleSheetsServiceImpl implements GoogleSheetsService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(GoogleSheetsService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(GoogleSheetsServiceImpl.class);
 
-  private static final GoogleSheetsService INSTANCE = new GoogleSheetsService();
+  private static final GoogleSheetsServiceImpl INSTANCE = new GoogleSheetsServiceImpl();
 
-  private GoogleSheetsService() {
+  private GoogleSheetsServiceImpl() {
     LOGGER.info("Initialized GoogleSheetsService");
   }
 
-  public static GoogleSheetsService getInstance() {
+  public static GoogleSheetsServiceImpl getInstance() {
     return INSTANCE;
   }
 
   @Override
   public String readFromSheet(String spreadsheetId, String range) {
-    LOGGER.info("Reading data from Google Sheets: spreadsheetId={}, range={}", spreadsheetId,
-        range);
+    LOGGER.info("Reading data from Google Sheets");
     try {
       ValueRange response =
           ObjectContainerUtil.getGoogleSheetUtil().getSheetsService().spreadsheets().values()
@@ -43,21 +42,21 @@ public class GoogleSheetsService implements IGoogleSheetsService {
 
       List<List<Object>> values = response.getValues();
       if (values == null || values.isEmpty()) {
-        LOGGER.warn("No data found in spreadsheetId={}, range={}", spreadsheetId, range);
+        LOGGER.warn("No data found");
         return "";
       }
       return parseObjectToString(values);
     } catch (IOException e) {
-      LOGGER.error("Error reading data from spreadsheetId={}, range={}", spreadsheetId, range, e);
+      LOGGER.error("Error reading data from spreadsheetId={}", spreadsheetId, e);
       return "";
     }
   }
 
   @Override
   public boolean writeToSheet(String spreadsheetId, String range, List<List<Object>> data) {
-    LOGGER.info("Write data to Google Sheets: spreadsheetId={}, range={}", spreadsheetId, range);
+    LOGGER.info("Write data to Google Sheets");
     if (data == null || data.isEmpty()) {
-      LOGGER.warn("No data to write for spreadsheetId={}, range={}", spreadsheetId, range);
+      LOGGER.warn("No data to write ");
       return false;
     }
     try {
@@ -66,9 +65,7 @@ public class GoogleSheetsService implements IGoogleSheetsService {
           ObjectContainerUtil.getGoogleSheetUtil().getSheetsService().spreadsheets().values()
               .update(GoogleCredentialReaderUtil.getTemplateFileId(), range, body)
               .setValueInputOption("USER_ENTERED").execute();
-
-      LOGGER.info("{} cells updated successfully in spreadsheetId={}", result.getUpdatedCells(),
-          spreadsheetId);
+      LOGGER.info("{} cells updated successfully", result.getUpdatedCells());
       return true;
     } catch (IOException e) {
       LOGGER.error("Error writing data to spreadsheetId={}, range={}", spreadsheetId, range, e);
@@ -85,20 +82,15 @@ public class GoogleSheetsService implements IGoogleSheetsService {
         LOGGER.error("Sheet name '{}' not found", sheetName);
         return false;
       }
-
       DimensionRange dimRange = new DimensionRange().setSheetId(sheetId).setDimension("ROWS")
           .setStartIndex(rowIndex).setEndIndex(rowIndex + 1);
-
       InsertDimensionRequest insertReq =
           new InsertDimensionRequest().setRange(dimRange).setInheritFromBefore(rowIndex > 0);
-
       Request request = new Request().setInsertDimension(insertReq);
       BatchUpdateSpreadsheetRequest batchReq =
           new BatchUpdateSpreadsheetRequest().setRequests(Collections.singletonList(request));
-
       ObjectContainerUtil.getGoogleSheetUtil().getSheetsService().spreadsheets()
           .batchUpdate(spreadsheetId, batchReq).execute();
-
       LOGGER.info("Inserted row successfully.");
       return true;
     } catch (IOException e) {
@@ -119,9 +111,8 @@ public class GoogleSheetsService implements IGoogleSheetsService {
   }
 
   private String parseObjectToString(List<List<Object>> values) {
-    String s = values.stream()
-        .map(value -> value.stream().map(Object::toString).map(String::trim).collect(Collectors.joining(" ")))
-        .collect(Collectors.joining("\n"));
+    String s = values.stream().map(value -> value.stream().map(Object::toString).map(String::trim)
+        .collect(Collectors.joining(" "))).collect(Collectors.joining("\n"));
     return s;
   }
 

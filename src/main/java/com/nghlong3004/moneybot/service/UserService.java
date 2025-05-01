@@ -1,9 +1,9 @@
-package com.nghlong3004.moneybot.service.dao;
+package com.nghlong3004.moneybot.service;
 
 import java.util.List;
 import com.nghlong3004.moneybot.model.User;
 
-public interface IUserService {
+public interface UserService {
   
   boolean insertUser(User user);
 

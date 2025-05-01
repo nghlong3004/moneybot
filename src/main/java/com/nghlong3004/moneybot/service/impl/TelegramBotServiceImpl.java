@@ -8,12 +8,12 @@ import org.telegram.telegrambots.meta.api.objects.message.Message;
 import com.nghlong3004.moneybot.telegram.TelegramCommandHandler;
 import com.nghlong3004.moneybot.telegram.TelegramTransactionProcessor;
 
-public final class TelegramBotService implements LongPollingSingleThreadUpdateConsumer {
-  private static final Logger LOGGER = LoggerFactory.getLogger(TelegramBotService.class);
+public final class TelegramBotServiceImpl implements LongPollingSingleThreadUpdateConsumer {
+  private static final Logger LOGGER = LoggerFactory.getLogger(TelegramBotServiceImpl.class);
   private final TelegramCommandHandler commandHandler;
   private final TelegramTransactionProcessor transactionProcessor;
 
-  public TelegramBotService(TelegramCommandHandler commandHandler,
+  public TelegramBotServiceImpl(TelegramCommandHandler commandHandler,
       TelegramTransactionProcessor transactionProcessor) {
     this.commandHandler = commandHandler;
     this.transactionProcessor = transactionProcessor;
