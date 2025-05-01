@@ -25,8 +25,8 @@ public final class AIFacadeService {
   }
 
   private AIFacadeService(String AzureToken, String geminiKey, String endpoint) {
-    registry.put(ProviderAI.OPEN_AI, new AzureStrategy(AzureToken, endpoint));
-    registry.put(ProviderAI.GEMINI, new GeminiStrategy(geminiKey));
+    register(ProviderAI.OPEN_AI, new AzureStrategy(AzureToken, endpoint));
+    register(ProviderAI.GEMINI, new GeminiStrategy(geminiKey));
     LOGGER.info("AIServiceFacade initialised with {} providers", registry.size());
   }
 
@@ -36,19 +36,19 @@ public final class AIFacadeService {
   }
 
   public String ask(AIModel model, String prompt) {
-    AIClientStrategy s = get(model.getProvider());
-    return s.chat(prompt, model);
+    AIClientStrategy aiClientStrategy = get(model.getProvider());
+    return aiClientStrategy.chat(prompt, model);
   }
 
   public String askVision(AIModel model, String prompt, URI image) {
-    AIClientStrategy s = get(model.getProvider());
-    return s.vision(prompt, image, model);
+    AIClientStrategy aiClientStrategy = get(model.getProvider());
+    return aiClientStrategy.vision(prompt, image, model);
   }
 
   private AIClientStrategy get(ProviderAI p) {
-    AIClientStrategy s = registry.get(p);
-    if (s == null)
+    AIClientStrategy aiClientStrategy = registry.get(p);
+    if (aiClientStrategy == null)
       throw new IllegalStateException("No strategy for provider " + p);
-    return s;
+    return aiClientStrategy;
   }
 }

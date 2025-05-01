@@ -1,4 +1,4 @@
-package com.nghlong3004.moneybot.service;
+package com.nghlong3004.moneybot.service.dao;
 
 import java.util.List;
 import com.nghlong3004.moneybot.model.User;

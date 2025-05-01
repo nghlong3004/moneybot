@@ -1,9 +1,9 @@
-package com.nghlong3004.moneybot.service.impl;
+package com.nghlong3004.moneybot.service.dao.impl;
 
 import com.nghlong3004.moneybot.model.Expense;
 import com.nghlong3004.moneybot.repository.IExpenseRepository;
 import com.nghlong3004.moneybot.repository.jdbc.ExpenseRepository;
-import com.nghlong3004.moneybot.service.IExpenseService;
+import com.nghlong3004.moneybot.service.dao.IExpenseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

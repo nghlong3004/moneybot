@@ -1,4 +1,4 @@
-package com.nghlong3004.moneybot.service.impl;
+package com.nghlong3004.moneybot.service.dao.impl;
 
 import java.util.List;
 import org.slf4j.Logger;
@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.nghlong3004.moneybot.model.User;
 import com.nghlong3004.moneybot.repository.IUserRepository;
 import com.nghlong3004.moneybot.repository.jdbc.UserRepository;
-import com.nghlong3004.moneybot.service.IUserService;
+import com.nghlong3004.moneybot.service.dao.IUserService;
 
 public class UserService implements IUserService {
 
