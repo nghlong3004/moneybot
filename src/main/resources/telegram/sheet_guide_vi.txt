@@ -1,0 +1,24 @@
+Tạo template MoneyBot trên Google Sheets chỉ trong vài bước:
+
+1. Truy cập vào liên kết sau:
+👉 https://docs.google.com/spreadsheets/d/1SXStsF3_S8UwBlY7e6QBbYUqcpj6aM1_dxTCWcHC420/edit
+
+2. Tạo bản sao của file:
+
+	+ Nhấn vào “Tệp” ở góc trên bên trái.
+
+	+ Chọn “Tạo bản sao”.
+
+	+ Đặt tên file theo ý bạn, rồi nhấn “OK”.
+	
+3. Chia sẻ file với hệ thống:
+
+	+ Ở góc trên bên phải, nhấn nút “Chia sẻ”.
+
+	+ Trong ô “Thêm người, nhóm hoặc sự kiện trên lịch”, nhập:
+	nghlong300405@gmail.com
+	+ Nhấn “Gửi” để cấp quyền truy cập.
+	
+4. Gửi lại link file của bạn:
+
+	+ Sau khi chia sẻ, hãy sao chép đường dẫn trên trình duyệt và gửi lại cho mình.
