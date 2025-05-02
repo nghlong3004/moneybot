@@ -1,11 +1,11 @@
-package com.nghlong3004.moneybot.service;
+package com.nghlong3004.moneybot.repository;
 
 import java.util.List;
 import com.nghlong3004.moneybot.constant.SpreadsheetLinkStatus;
 import com.nghlong3004.moneybot.model.User;
 
-public interface UserService {
-
+public interface UserRepository {
+  
   boolean insertUser(User user);
 
   boolean updateUser(User user);
@@ -27,5 +27,4 @@ public interface UserService {
   boolean updateSpreadsheetStatus(Long telegramUserId, SpreadsheetLinkStatus status);
   
   User findUserByTelegramId(Long telegramUserId);
-  
 }

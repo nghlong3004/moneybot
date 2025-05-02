@@ -3,16 +3,17 @@ package com.nghlong3004.moneybot.service.impl;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.nghlong3004.moneybot.constant.SpreadsheetLinkStatus;
 import com.nghlong3004.moneybot.model.User;
-import com.nghlong3004.moneybot.repository.IUserRepository;
-import com.nghlong3004.moneybot.repository.jdbc.UserRepository;
+import com.nghlong3004.moneybot.repository.UserRepository;
+import com.nghlong3004.moneybot.repository.jdbc.UserRepositoryImpl;
 import com.nghlong3004.moneybot.service.UserService;
 
 public class UserServiceImpl implements UserService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
   private static UserServiceImpl INSTANCE;
-  private final IUserRepository userRepository;
+  private final UserRepository userRepository;
 
   public static synchronized UserServiceImpl getInstance() {
     if (INSTANCE == null) {
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
   private UserServiceImpl() {
     LOGGER.info("Initialized UserService");
-    userRepository = new UserRepository();
+    userRepository = new UserRepositoryImpl();
   }
 
 
@@ -61,6 +62,36 @@ public class UserServiceImpl implements UserService {
   public boolean deleteUser(Long telegramUserId) {
     LOGGER.info("UserService: {}", "Delete User");
     return userRepository.deleteUser(telegramUserId);
+  }
+
+  @Override
+  public boolean hasSpreadsheetId(Long telegramUserId) {
+    LOGGER.info("UserService: {}", "Has Spreadsheet Id");
+    return userRepository.hasSpreadsheetId(telegramUserId);
+  }
+
+  @Override
+  public String getSpreadsheetId(Long telegramUserId) {
+    LOGGER.info("UserService: {}", "Get Spreadsheet Id");
+    return userRepository.getSpreadsheetId(telegramUserId);
+  }
+
+  @Override
+  public boolean updateSpreadsheetStatus(Long telegramUserId, SpreadsheetLinkStatus status) {
+    LOGGER.info("UserService: {}", "Update Spreadsheet status");
+    return userRepository.updateSpreadsheetStatus(telegramUserId, status);
+  }
+
+  @Override
+  public User findUserByTelegramId(Long telegramUserId) {
+    LOGGER.info("UserService: {}", "Find user by telegram id");
+    return userRepository.findUserByTelegramId(telegramUserId);
+  }
+
+  @Override
+  public boolean updateSpreadsheetId(Long telegramUserId, String spreadsheetId) {
+    LOGGER.info("UserService: {}", "Update Spreadsheet id");
+    return userRepository.updateSpreadsheetId(telegramUserId, spreadsheetId);
   }
 
 }
