@@ -1,0 +1,11 @@
+👋 Chào mừng bạn đến với MoneyBot!
+
+🤖 Mình là trợ lý giúp bạn ghi nhận và theo dõi chi tiêu một cách thông minh.
+
+💡 Bạn có thể:
+- Nhắn tin tự nhiên như: “Chi 50k ăn sáng”, “Nhận lương 5 triệu”, v.v.
+- Hoặc gõ /help để xem các lệnh thống kê nhanh.
+
+📂 Trước khi sử dụng, hãy tạo Google Sheet để lưu dữ liệu. Gõ /sheet_guide để xem hướng dẫn.
+
+Bắt đầu thôi nào! 🚀

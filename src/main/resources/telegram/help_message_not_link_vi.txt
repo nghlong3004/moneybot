@@ -1,0 +1,11 @@
+Hướng dẫn sử dụng Bot:
+
+Lưu ý: Bạn phải tạo Google Sheet trước để có thể lưu dữ liệu.
+
+Các lệnh cơ bản:
+
+/sheet_guide — Xem hướng dẫn cách tạo Google Sheet để liên kết với Bot
+
+/help — Hiển thị bảng hướng dẫn sử dụng Bot (chỉ khả dụng sau khi đã tạo Google Sheet)
+
+Các tính năng nâng cao hiện đang được ẩn cho đến khi bạn hoàn tất bước liên kết Google Sheet.
