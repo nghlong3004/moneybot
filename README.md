@@ -4,12 +4,16 @@
 
 ---
 
+## Công nghệ sử dụng
+- # Posgresql
+- # Java 8+
+
 ## ✨ Tính năng
 
 - **Liên kết và quản lý dữ liệu** qua Google Sheets.
 - **Theo dõi và quản lý giao dịch** nhanh chóng, tiện lợi.
 - **Xử lý tự động** các tin nhắn và lệnh từ người dùng.
-- **Trải nghiệm ngay:** [Telegram Bot - nghlong3004_moneybot](https://t.me/nghlong3004_moneybot)
+- **Trải nghiệm ngay:** [Telegram Bot - MoneyBot](https://t.me/nghlong3004_moneybot)
 
 ### 📸 Demo
 
